@@ -38,7 +38,6 @@
     let value;
     do {
       value = words[Math.floor(Math.random() * Object.values(words).length)];
-      console.log(value.isDone);
     } while (value.isDone);
 
     return value;
