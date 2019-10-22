@@ -23,7 +23,7 @@
 
   function updateTimer() {
     const timeLeft = startTime + timeLimit - Date.now();
-    console.log((timeLeft / 1000).toFixed(2));
+    timerLabel.textContent = (timeLeft / 1000).toFixed(2);
 
     timeoutId = setTimeout(() => {
       updateTimer();
@@ -31,7 +31,7 @@
 
     if (timeLeft < 0) {
       clearTimeout(timeoutId);
-      console.log("finished");
+      timerLabel.textContent = "0.00";
     }
   }
 
