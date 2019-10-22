@@ -1,5 +1,5 @@
 body {
-  padding-top: 50px;
+  padding-top: 120px;
   font-family: メイリオ, Meiryo;
   text-align: center;
 }
@@ -11,10 +11,17 @@ body {
 
 .info {
   font-size: 20px;
-  color: #ccc;
+  color: #CCDFFA;
+}
+
+.info span {
+  margin: 0 10px;
+}
+
+.info>.tens {
+  color: #FC9892;
 }
 
 .btn {
   margin-top: 100px;
-  color: blue;
 }
