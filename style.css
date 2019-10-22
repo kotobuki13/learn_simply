@@ -1,0 +1,20 @@
+body {
+  padding-top: 50px;
+  font-family: メイリオ, Meiryo;
+  text-align: center;
+}
+
+#target {
+  font-size: 50px;
+  letter-spacing: 3px;
+}
+
+.info {
+  font-size: 20px;
+  color: #ccc;
+}
+
+.btn {
+  margin-top: 100px;
+  color: blue;
+}
