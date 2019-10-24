@@ -21,7 +21,9 @@
   let doneCount;
   let isPlaying;
 
-  const timeLimit = 30 * 1000;
+  const timeLimit = Number(sessionStorage.getItem('timeLimit'));  // タイトルページから
+  sessionStorage.removeItem('timeLimit');                         // 制限時間の取得
+
   let startTime;
   let timeoutId;
 
