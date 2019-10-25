@@ -2,17 +2,18 @@
 
 {
   const words = {
-    0: { word: "white", isDone: false },
-    1: { word: "book", isDone: false },
-    2: { word: "car", isDone: false },
-    3: { word: "pencil", isDone: false },
-    4: { word: "paper", isDone: false },
-    5: { word: "dog", isDone: false },
-    6: { word: "walking", isDone: false },
-    7: { word: "right", isDone: false },
-    8: { word: "keyboard", isDone: false },
-    9: { word: "street", isDone: false }
+    0: { word: "white", class: "名詞", meaning: "白", isDone: false },
+    1: { word: "marvelous", class: "形容詞", meaning: "素晴らしい", isDone: false },
+    2: { word: "car", class: "名詞", meaning: "車", isDone: false },
+    3: { word: "eat", class: "動詞", meaning: "食べる", isDone: false },
+    4: { word: "paper", class: "名詞", meaning: "紙", isDone: false },
+    5: { word: "dog", class: "名詞", meaning: "犬", isDone: false },
+    6: { word: "book", class: "動詞", meaning: "予約する", isDone: false },
+    7: { word: "light", class: "名詞", meaning: "光", isDone: false },
+    8: { word: "keyboard", class: "名詞", meaning: "キーボード", isDone: false },
+    9: { word: "street", class: "名詞", meaning: "道", isDone: false }
   };
+
 
   let wordNow;
   let loc;
@@ -20,20 +21,30 @@
   let miss;
   let doneCount;
   let isPlaying;
+  let noLimit = false;
 
-  const timeLimit = Number(sessionStorage.getItem('timeLimit'));  // タイトルページから
-  sessionStorage.removeItem('timeLimit');                         // 制限時間の取得
+  const timeLimit = Number(sessionStorage.getItem('timeLimit'));
+
+  if (timeLimit < 0) {   // タイトルページから
+    noLimit = true;         // 制限時間の取得
+  }
+
+  sessionStorage.removeItem('timeLimit');
 
   let startTime;
   let timeoutId;
 
   const remain = document.getElementById('remain');
+  const meaning = document.getElementById('meaning');
   const target = document.getElementById('target');
   const sumLabel = document.getElementById('sum');
   const missLabel = document.getElementById('miss');
   const timerLabel = document.getElementById('timer');
+  const stopGame = document.getElementById('stopGame');
 
   timerLabel.textContent = (timeLimit / 1000).toFixed(2);
+  if (noLimit) timerLabel.textContent = "無制限";
+
   remain.textContent = `0 / ${Object.values(words).length}`;
 
   function getWord() {  // 未達成の文字のみ取り出す
@@ -91,8 +102,9 @@
     wordNow = getWord();
 
     target.textContent = wordNow.word;
+    meaning.textContent = `【${wordNow.class}】 ${wordNow.meaning}`;
     startTime = Date.now();
-    updateTimer();
+    if (!noLimit) updateTimer();
   });
 
   window.addEventListener('keydown', e => { // タイピング処理
@@ -119,10 +131,16 @@
         }
       }
       updateTarget();
+      meaning.textContent = `【${wordNow.class}】 ${wordNow.meaning}`;
+
       sum++;
       sumLabel.textContent = sum;
 
       if (!isPlaying) finish();
     }
+  });
+
+  stopGame.addEventListener('click', () => {  // ゲーム中断処理
+    finish();
   });
 }
