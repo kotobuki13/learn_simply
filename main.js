@@ -14,22 +14,22 @@
     9: { word: "street", class: "名詞", meaning: "道", isDone: false }
   };
 
-
   let wordNow;
   let loc;
-  let sum;
+  let score;
   let miss;
   let doneCount;
   let isPlaying;
   let noLimit = false;
 
+  const wordsCount = Object.values(words).length;
   const timeLimit = Number(sessionStorage.getItem('timeLimit'));
+
+  sessionStorage.clear();
 
   if (timeLimit < 0) {   // タイトルページから
     noLimit = true;         // 制限時間の取得
   }
-
-  sessionStorage.removeItem('timeLimit');
 
   let startTime;
   let timeoutId;
@@ -37,7 +37,7 @@
   const remain = document.getElementById('remain');
   const meaning = document.getElementById('meaning');
   const target = document.getElementById('target');
-  const sumLabel = document.getElementById('sum');
+  const scoreLabel = document.getElementById('score');
   const missLabel = document.getElementById('miss');
   const timerLabel = document.getElementById('timer');
   const stopGame = document.getElementById('stopGame');
@@ -45,12 +45,12 @@
   timerLabel.textContent = (timeLimit / 1000).toFixed(2);
   if (noLimit) timerLabel.textContent = "無制限";
 
-  remain.textContent = `0 / ${Object.values(words).length}`;
+  remain.textContent = `0 / ${wordsCount}`;
 
   function getWord() {  // 未達成の文字のみ取り出す
     let value;
     do {
-      value = words[Math.floor(Math.random() * Object.values(words).length)];
+      value = words[Math.floor(Math.random() * wordsCount)];
     } while (value.isDone);
 
     return value;
@@ -84,6 +84,15 @@
   }
 
   function finish() {
+    const result = {
+      resultScore: score,
+      resultMiss: miss,
+      resultDoneCnt: doneCount,
+      wordsCnt: wordsCount
+    }
+
+    sessionStorage.setItem("result", JSON.stringify(result));
+
     window.location.href = './result.html';
   }
 
@@ -94,10 +103,10 @@
     isPlaying = true;
 
     loc = 0;
-    sum = 0;
+    score = 0;
     miss = 0;
     doneCount = 0;
-    sumLabel.textContent = sum;
+    scoreLabel.textContent = score;
     missLabel.textContent = miss;
     wordNow = getWord();
 
@@ -121,9 +130,9 @@
       if (loc === wordNow.word.length) {  // 次の単語へ
         wordNow.isDone = true;
         doneCount++;
-        remain.textContent = `${doneCount} / ${Object.values(words).length}`;
+        remain.textContent = `${doneCount} / ${wordsCount}`;
 
-        if (!(doneCount === Object.values(words).length)) { // 全て達成していない
+        if (!(doneCount === wordsCount)) { // 全て達成していない
           wordNow = getWord();
           loc = 0;
         } else {
@@ -133,8 +142,8 @@
       updateTarget();
       meaning.textContent = `【${wordNow.class}】 ${wordNow.meaning}`;
 
-      sum++;
-      sumLabel.textContent = sum;
+      score++;
+      scoreLabel.textContent = score;
 
       if (!isPlaying) finish();
     }
