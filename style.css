@@ -36,6 +36,7 @@ h1 {
 }
 
 .info span {
+  font-weight: bold;
   margin: 0 10px;
 }
 
