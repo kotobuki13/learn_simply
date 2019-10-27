@@ -4,6 +4,16 @@
 
   const addWord = document.getElementById('addWord');
   const wordsCnt = document.getElementById('wordsCnt');
+  const wordNameLabel = document.getElementById('wordNameLabel');
+  const wordTypeLabel = document.getElementById('wordTypeLabel');
+  const wordMeaningLabel = document.getElementById('wordMeaningLabel');
+  const encourage = document.getElementById('encourage');
+
+  function showListLabel() {
+    wordNameLabel.textContent = "単語名";
+    wordTypeLabel.textContent = "品詞";
+    wordMeaningLabel.textContent = "意味";
+  };
 
   function showList() {   // 単語リストの表示
     words.forEach(function (word) {
@@ -34,7 +44,7 @@
           localStorage.setItem('wordList', JSON.stringify(words));
 
           location.reload();
-        }
+        };
       });
 
       document.querySelector('.deleteMark').appendChild(li);
@@ -50,14 +60,17 @@
 
     const word = { name: selectedWordName, type: selectedWordType, meaning: selectedWordMeaning, isDone: false };
     return word;
-  }
-
-  if (!(localStorage.getItem('wordList') === null)) {
-    words = JSON.parse(localStorage.getItem('wordList')); //LocalStrageから単語リストの読み込み
-    showList();
   };
 
-  wordsCnt.textContent = words.length;
+  words = JSON.parse(localStorage.getItem('wordList')); //LocalStrageから単語リストの読み込み
+
+  if (words.length !== 0) {
+    showListLabel();
+    showList();
+    wordsCnt.textContent = `登録単語: ${words.length}語`;  // 単語数の表示
+  } else {
+    encourage.textContent = "単語が登録されていません、今すぐ追加しましょう！";
+  };
 
   addWord.addEventListener('click', () => {  // 単語の登録
     const word = getInfo();
