@@ -2,6 +2,8 @@
 {
   let words;
 
+  const addWord = document.getElementById('addWord');
+
   function showList() {
     Object.keys(words).forEach(function (key) {   // 単語リストの表示
 
@@ -31,8 +33,27 @@
     }, words);
   };
 
+  function getInfo() {
+    const selectedWordName = document.registerForm.wordName.value;  // 単語名
+    const wordType = document.registerForm.wordType;  // 品詞
+    const index = wordType.selectedIndex;
+    const selectedWordType = wordType.options[index].value;
+    const selectedWordMeaning = document.registerForm.wordMeaning.value  // 意味の取得
+
+    const word = { name: selectedWordName, type: selectedWordType, meaning: selectedWordMeaning, isDone: false };
+    return word;
+  }
+
   if (!(localStorage.getItem('wordList') === null)) {
     words = JSON.parse(localStorage.getItem('wordList')); //LocalStrageから単語リストの読み込み
     showList();
   };
+
+  addWord.addEventListener('click', () => {  // 単語の登録
+    const word = getInfo();
+    words[words.length] = word;
+    localStorage.setItem('wordList', JSON.stringify(words));
+
+    location.reload();
+  });
 }
