@@ -11,6 +11,26 @@
 
   <h2>単語リスト</h2>
 
+  <form name="registerForm" class="registerForm">
+    <span class="formLabel">単語名</span>
+    <input type="text" name="wordName" size="15" maxlength="45" value="" />
+    <span class="formLabel">品詞</span>
+    <select name="wordType">
+      <option value="名詞">名詞</option>
+      <option value="代名詞">代名詞</option>
+      <option value="動詞">動詞</option>
+      <option value="形容詞">形容詞</option>
+      <option value="副詞">副詞</option>
+      <option value="前置詞">前置詞</option>
+      <option value="接続詞">接続詞</option>
+      <option value="その他">その他</option>
+    </select>
+    <span class="formLabel">意味</span>
+    <input type="text" name="wordMeaning" size="15" maxlength="28" value="" />
+    <input type="button" value="単語登録" id="addWord">
+  </form>
+
+
   <div class="listCon">
     <h4>単語名</h4>
     <ul class="list WordName"></ul>

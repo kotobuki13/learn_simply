@@ -7,7 +7,7 @@
   startGame.onclick = function () {
     sessionStorage.removeItem('timeLimit');
 
-    const time = document.sample_form.time;
+    const time = document.topForm.time;
     const index = time.selectedIndex;
     const selectedTime = time.options[index].value * 1000;
 

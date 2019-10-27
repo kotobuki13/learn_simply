@@ -9,17 +9,23 @@ h1 {
   font-size: 80px;
 }
 
-.pullLabel {
+.registerForm {
+  margin: 30px 0;
+}
+
+.formLabel {
   color: #424242;
+  margin-left: 15px;
   margin-right: 5px;
 }
 
-#startGame {
-  margin-left: 40px;
+#startGame, #addWord {
+  margin-left: 35px;
 }
 
 .listCon {
   display: inline-block;
+  margin: 0 30px;
 }
 
 h4 {
