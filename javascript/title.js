@@ -1,6 +1,13 @@
 'use strict'
 
 {
+  if (JSON.parse((localStorage.getItem('wordList'))) === null) {
+    const words = [
+      { name: "pencil", type: "名詞", meaning: "えんぴつ", isDone: false }
+    ];
+    localStorage.setItem('wordList', JSON.stringify(words));
+  };
+
   const words = JSON.parse(localStorage.getItem('wordList'));
   const startGame = document.getElementById("startGame");
 

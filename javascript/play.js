@@ -95,6 +95,7 @@
     score = 0;
     miss = 0;
     doneCount = 0;
+    stopGame.textContent = "中断して結果ページへ";
     scoreLabel.textContent = score;
     missLabel.textContent = miss;
     wordNow = getWord();
