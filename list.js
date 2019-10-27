@@ -3,34 +3,42 @@
   let words;
 
   const addWord = document.getElementById('addWord');
+  const wordsCnt = document.getElementById('wordsCnt');
 
-  function showList() {
-    Object.keys(words).forEach(function (key) {   // 単語リストの表示
-
-      const el = this[key];
-
+  function showList() {   // 単語リストの表示
+    words.forEach(function (word) {
       const li = document.createElement('li');
-      li.textContent = `${el.name}`;
+      li.textContent = `${word.name}`;
       document.querySelector('.WordName').appendChild(li);
-    }, words);
+    });
 
-    Object.keys(words).forEach(function (key) {
-
-      const el = this[key];
-
+    words.forEach(function (word) {
       const li = document.createElement('li');
-      li.textContent = `${el.type}`;
+      li.textContent = `${word.type}`;
       document.querySelector('.WordType').appendChild(li);
-    }, words);
+    });
 
-    Object.keys(words).forEach(function (key) {
-
-      const el = this[key];
-
+    words.forEach(function (word) {
       const li = document.createElement('li');
-      li.textContent = `${el.meaning}`;
+      li.textContent = `${word.meaning}`;
       document.querySelector('.WordMeaning').appendChild(li);
-    }, words);
+    });
+
+    words.forEach(function (word, index) {  // 削除ボタンの表示
+      const li = document.createElement('li');
+      li.textContent = "[×]";
+      li.addEventListener('click', () => {
+        const will = confirm("本当に削除しますか？");
+        if (will) {
+          words.splice(index, 1);
+          localStorage.setItem('wordList', JSON.stringify(words));
+
+          location.reload();
+        }
+      });
+
+      document.querySelector('.deleteMark').appendChild(li);
+    });
   };
 
   function getInfo() {
@@ -48,6 +56,8 @@
     words = JSON.parse(localStorage.getItem('wordList')); //LocalStrageから単語リストの読み込み
     showList();
   };
+
+  wordsCnt.textContent = words.length;
 
   addWord.addEventListener('click', () => {  // 単語の登録
     const word = getInfo();

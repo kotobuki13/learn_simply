@@ -10,7 +10,8 @@ h1 {
 }
 
 .registerForm {
-  margin: 30px 0;
+  margin-top: 80px;
+  margin-bottom: 80px;
 }
 
 .formLabel {
@@ -23,9 +24,16 @@ h1 {
   margin-left: 35px;
 }
 
+.wordsCnt {
+  margin: 0 auto;
+  width: 580px;
+  color: #6E6E6E;
+  text-align: left;
+}
+
 .listCon {
   display: inline-block;
-  margin: 0 30px;
+  margin: 0 35px;
 }
 
 h4 {
@@ -35,6 +43,12 @@ h4 {
 .list {
   text-align: left;
   list-style: none;
+}
+
+.deleteMark {
+  color: #FC9892;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .list li {
