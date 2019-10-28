@@ -20,6 +20,10 @@ h1 {
   margin-right: 5px;
 }
 
+#errorLabel {
+  color: #FE2E2E;
+}
+
 #startGame, #addWord {
   margin-left: 35px;
 }
@@ -94,6 +98,12 @@ h4 {
 
 .link {
   margin: 40px 0;
+  color: #58ACFA;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.linkResult {
   color: #58ACFA;
   text-decoration: underline;
   cursor: pointer;

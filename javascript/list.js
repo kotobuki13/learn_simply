@@ -3,6 +3,7 @@
   let words;
 
   const addWord = document.getElementById('addWord');
+  const errorLabel = document.getElementById('errorLabel');
   const wordsCnt = document.getElementById('wordsCnt');
   const wordNameLabel = document.getElementById('wordNameLabel');
   const wordTypeLabel = document.getElementById('wordTypeLabel');
@@ -62,6 +63,14 @@
     return word;
   };
 
+  function isHanEisu(word) {    // 入力された単語名のチェック
+    if (word.name.match(/^[A-Za-z]*$/)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   words = JSON.parse(localStorage.getItem('wordList')); //LocalStrageから単語リストの読み込み
 
   if (words.length !== 0) {
@@ -74,9 +83,12 @@
 
   addWord.addEventListener('click', () => {  // 単語の登録
     const word = getInfo();
-    words[words.length] = word;
-    localStorage.setItem('wordList', JSON.stringify(words));
-
-    location.reload();
+    if (isHanEisu(word)) {
+      words[words.length] = word;
+      localStorage.setItem('wordList', JSON.stringify(words));
+      location.reload();
+    } else {
+      errorLabel.textContent = "登録できる単語名は半角英字のみです。";
+    }
   });
 }
